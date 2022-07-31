@@ -1,6 +1,5 @@
 <%@ page import="net.sni.servletbasic.model.Response" %>
-<%@ page import="net.sni.servletbasic.model.Person" %>
-<%@ page import="java.lang.reflect.Field" %><%--
+<%@ page import="net.sni.servletbasic.dto.PersonDto" %><%--
   Created by IntelliJ IDEA.
   User: egurkan
   Date: 29/07/2022
@@ -15,20 +14,67 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>People</title>
 </head>
-<body>
+<body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
     <% if (request.getAttribute("response") != null) {
-        Response<Person> resp = (Response<Person>) request.getAttribute("response"); %>
-    <table>
-        <tr>
-            <% for (Field field : Person.class.getDeclaredFields()) { %>
-                <th><%= field.getName() %></th>
-            <% } %>
-        </tr>
-        <% for (Person person : resp.getResults()) { %>
-            <%--TODO: You are here--%>
-        <% } %>
-    </table>
+        Response<PersonDto> resp = (Response<PersonDto>) request.getAttribute("response"); %>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="mt-4 -mb-3">
+                <div class="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
+                    <div style="background-position:10px 10px" class="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"></div>
+                    <div class="relative rounded-xl overflow-auto">
+                        <div class="shadow-sm overflow-hidden my-8">
+                            <table class="border-collapse table-auto w-full text-sm">
+                                <thead>
+                                <tr>
+                                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">NAME</th>
+                                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">GENDER</th>
+                                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">BIRTH YEAR</th>
+                                </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-slate-800">
+                                <% for (PersonDto person : resp.getResults()) { %>
+                                <tr class="dark:hover:bg-slate-700 handle">
+                                    <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                        <%= person.getName() %>
+                                    </td>
+                                    <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"><%= person.getGender() %></td>
+                                    <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400"><%= person.getBirthYear() %></td>
+                                </tr>
+                                <% } %>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="font-medium p-4 pl-8 pb-0 pt-3 dark:text-slate-200 text-left">
+                                            <%="Showing " + resp.getResults().size() + " of " + resp.getCount().intValue() + " entities."%>
+                                        </th>
+                                        <th class="font-medium p-4 pl-8 pb-0 pt-3 dark:text-slate-200 text-left"></th>
+                                        <th class="font-medium p-4 pl-8 pb-0 pt-3 dark:text-slate-200 text-left">
+                                            <div>
+                                                <a id="table-prev" class="pr-2" href="<%=resp.getPrevious() != null ? resp.getPrevious() : ""%>">Previous</a>
+                                                <a id="table-next" href="<%=resp.getNext() != null ? resp.getNext() : ""%>">Next</a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 pointer-events-none border border-black/5 rounded-xl dark:border-white/5"></div>
+                </div>
+            </div>
+        </div>
+    <%}%>
+
+    <script type="text/javascript">
+        $("tbody").sortable({
+            handle: ".handle",
+            distance: 10
+        });
+    </script>
 </body>
 </html>
