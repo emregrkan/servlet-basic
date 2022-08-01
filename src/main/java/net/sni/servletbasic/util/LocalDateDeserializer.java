@@ -14,10 +14,10 @@ import java.time.format.DateTimeFormatter;
 public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
 
     public LocalDateDeserializer() {
-        this(null);
+        this(String.class);
     }
 
-    protected LocalDateDeserializer(Class<LocalDate> vc) {
+    protected LocalDateDeserializer(Class<?> vc) {
         super(vc);
     }
 

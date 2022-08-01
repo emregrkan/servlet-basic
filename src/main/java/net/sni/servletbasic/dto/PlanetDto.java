@@ -8,16 +8,15 @@ import net.sni.servletbasic.util.UrlDeserializer;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIgnoreProperties(value = {"eye_color", "hair_color", "height", "mass", "skin_color", "homeworld", "films", "species", "starships", "vehicles", "created", "edited"})
-public class PersonDto {
+@JsonIgnoreProperties(value = {"rotation_period", "orbital_period", "diameter", "climate", "gravity", "terrain", "residents", "films", "created", "edited"})
+public class PlanetDto {
     private String name;
-    private String gender;
-    @JsonProperty("birth_year")
-    private String birthYear;
+    @JsonProperty("surface_water")
+    private String surfaceWater;
+    private String population;
     @JsonDeserialize(using = UrlDeserializer.class)
     private String url;
 }

@@ -2,6 +2,7 @@ package net.sni.servletbasic.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.util.List;
@@ -13,10 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(value = {"previous", "next"})
 public class Response<T> {
     private Float count;
-    private String next;
-    private String previous;
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private List<T> results;
 }

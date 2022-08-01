@@ -14,8 +14,6 @@ public class PeopleService {
 
     private static final Client client = ClientBuilder.newClient();
     private static final String apiURL = "https://swapi.dev/api/people/";
-    private String requestURI;
-    private String requestURL;
 
     private PeopleService() {
     }
@@ -24,19 +22,8 @@ public class PeopleService {
         return PeopleServiceHolder.INSTANCE;
     }
 
-    public PeopleService setRequestURI(final String requestURI) {
-        this.requestURI = requestURI;
-        return this;
-    }
-
-    public PeopleService setRequestURL(final String requestURL) {
-        this.requestURL = requestURL;
-        return this;
-    }
-
     public Optional<Person> findOne(final String id) {
-        final String baseUrl = requestURL.replaceAll(requestURL, apiURL);
-        final String url = baseUrl.concat(id);
+        final String url = apiURL.concat("/" + id);
 
         final Person person = client.target(url).request(MediaType.APPLICATION_JSON).get(Person.class);
 
@@ -51,17 +38,7 @@ public class PeopleService {
     }
 
     private Response<PersonDto> getPersonResponse(final String url) {
-        final Response<PersonDto> response = client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<Response<PersonDto>>() {});
-
-        if (response.getNext() != null) {
-            response.setNext(response.getNext().replaceAll(apiURL, requestURI));
-        }
-
-        if (response.getPrevious() != null) {
-            response.setPrevious(response.getPrevious().replaceAll(apiURL, requestURI));
-        }
-
-        return response;
+        return client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<Response<PersonDto>>() {});
     }
 
     private static class PeopleServiceHolder {

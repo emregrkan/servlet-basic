@@ -2,10 +2,12 @@ package net.sni.servletbasic.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 import net.sni.servletbasic.util.LocalDateDeserializer;
+import net.sni.servletbasic.util.UrlDeserializer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,10 +15,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(value = {"starships", "vehicles", "films", "species"})
 public class Person {
     private String name;
     @JsonProperty("birth_year")
@@ -31,14 +33,7 @@ public class Person {
     @JsonProperty("skin_color")
     private String skinColor;
     private String homeworld;
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<String> films;
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<String> species;
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<String> starships;
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    private List<String> vehicles;
+    @JsonDeserialize(using = UrlDeserializer.class)
     private String url;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate created;
