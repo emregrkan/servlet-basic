@@ -2,8 +2,10 @@ package net.sni.servletbasic.controller;
 
 import net.sni.servletbasic.dto.PersonDto;
 import net.sni.servletbasic.model.Person;
+import net.sni.servletbasic.model.Planet;
 import net.sni.servletbasic.model.Response;
 import net.sni.servletbasic.service.PeopleService;
+import net.sni.servletbasic.service.PlanetService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class PeopleServlet extends HttpServlet {
 
     private static final PeopleService peopleService = PeopleService.getInstance();
+    private static final PlanetService planetService = PlanetService.getInstance();
 
     @Override
     public void init() throws ServletException {
@@ -58,9 +61,20 @@ public class PeopleServlet extends HttpServlet {
     private void processFindOneRequest(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         final String personId = req.getPathInfo().substring(1);
 
-        final Optional<Person> response = peopleService.findOne(personId);
+        final Optional<Person> person = peopleService.findOne(personId);
 
-        response.ifPresent(person -> req.setAttribute("response", person));
+        if (person.isPresent()) {
+            final String planetId = person.get().getHomeworld().replaceAll("\\D", "");
+            final Optional<Planet> planet = planetService.findOne(planetId);
+
+            planet.ifPresent(p -> {
+                req.setAttribute("planetUrl", p.getUrl());
+                person.get().setHomeworld(p.getName());
+            });
+
+            req.setAttribute("person", person.get());
+        }
+
         req.getRequestDispatcher("/person.jsp").forward(req, resp);
     }
 }

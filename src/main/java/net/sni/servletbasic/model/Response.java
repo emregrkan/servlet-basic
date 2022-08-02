@@ -10,10 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @JsonIgnoreProperties(value = {"previous", "next"})
 public class Response<T> {
     private Float count;
