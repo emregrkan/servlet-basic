@@ -1,4 +1,4 @@
-<%@ page import="net.sni.servletbasic.model.Planet" %><%--
+<%@ page import="net.sni.servletbasic.entity.Planet" %><%--
   Created by IntelliJ IDEA.
   User: egurkan
   Date: 01/08/2022

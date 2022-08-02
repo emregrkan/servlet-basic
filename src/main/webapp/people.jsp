@@ -1,4 +1,4 @@
-<%@ page import="net.sni.servletbasic.model.Response" %>
+<%@ page import="net.sni.servletbasic.entity.Response" %>
 <%@ page import="net.sni.servletbasic.dto.PersonDto" %><%--
   Created by IntelliJ IDEA.
   User: egurkan

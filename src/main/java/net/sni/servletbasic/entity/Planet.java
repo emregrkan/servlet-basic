@@ -1,9 +1,12 @@
-package net.sni.servletbasic.model;
+package net.sni.servletbasic.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.sni.servletbasic.util.LocalDateDeserializer;
 import net.sni.servletbasic.util.UrlDeserializer;
 

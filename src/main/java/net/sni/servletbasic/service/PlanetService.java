@@ -1,9 +1,8 @@
 package net.sni.servletbasic.service;
 
-import net.sni.servletbasic.dto.PersonDto;
 import net.sni.servletbasic.dto.PlanetDto;
-import net.sni.servletbasic.model.Planet;
-import net.sni.servletbasic.model.Response;
+import net.sni.servletbasic.entity.Planet;
+import net.sni.servletbasic.entity.Response;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -34,7 +33,8 @@ public class PlanetService {
         final String pageParam = "?page=".concat(page);
         final String url = apiURL.concat(pageParam);
 
-        return client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<Response<PlanetDto>>() {});
+        return client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<Response<PlanetDto>>() {
+        });
     }
 
     private static class PlanetServiceHolder {

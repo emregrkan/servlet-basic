@@ -1,8 +1,8 @@
 package net.sni.servletbasic.service;
 
 import net.sni.servletbasic.dto.PersonDto;
-import net.sni.servletbasic.model.Person;
-import net.sni.servletbasic.model.Response;
+import net.sni.servletbasic.entity.Person;
+import net.sni.servletbasic.entity.Response;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -38,7 +38,8 @@ public class PeopleService {
     }
 
     private Response<PersonDto> getPersonResponse(final String url) {
-        return client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<Response<PersonDto>>() {});
+        return client.target(url).request(MediaType.APPLICATION_JSON).get(new GenericType<Response<PersonDto>>() {
+        });
     }
 
     private static class PeopleServiceHolder {

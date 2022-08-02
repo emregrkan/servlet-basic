@@ -1,9 +1,9 @@
 package net.sni.servletbasic.controller;
 
 import net.sni.servletbasic.dto.PersonDto;
-import net.sni.servletbasic.model.Person;
-import net.sni.servletbasic.model.Planet;
-import net.sni.servletbasic.model.Response;
+import net.sni.servletbasic.entity.Person;
+import net.sni.servletbasic.entity.Planet;
+import net.sni.servletbasic.entity.Response;
 import net.sni.servletbasic.service.PeopleService;
 import net.sni.servletbasic.service.PlanetService;
 
@@ -12,10 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Optional;
 

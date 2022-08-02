@@ -1,10 +1,8 @@
 package net.sni.servletbasic.controller;
 
-import net.sni.servletbasic.dto.PersonDto;
 import net.sni.servletbasic.dto.PlanetDto;
-import net.sni.servletbasic.model.Person;
-import net.sni.servletbasic.model.Planet;
-import net.sni.servletbasic.model.Response;
+import net.sni.servletbasic.entity.Planet;
+import net.sni.servletbasic.entity.Response;
 import net.sni.servletbasic.service.PlanetService;
 
 import javax.servlet.ServletException;

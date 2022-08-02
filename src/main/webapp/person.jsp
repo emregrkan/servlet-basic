@@ -1,4 +1,4 @@
-<%@ page import="net.sni.servletbasic.model.Person" %><%--
+<%@ page import="net.sni.servletbasic.entity.Person" %><%--
   Created by IntelliJ IDEA.
   User: emre-
   Date: 31/07/2022

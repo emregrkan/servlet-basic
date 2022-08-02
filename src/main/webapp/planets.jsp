@@ -1,5 +1,5 @@
 <%@ page import="net.sni.servletbasic.dto.PlanetDto" %>
-<%@ page import="net.sni.servletbasic.model.Response" %><%--
+<%@ page import="net.sni.servletbasic.entity.Response" %><%--
   Created by IntelliJ IDEA.
   User: egurkan
   Date: 01/08/2022
